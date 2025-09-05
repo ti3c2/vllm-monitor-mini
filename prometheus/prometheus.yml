@@ -1,0 +1,45 @@
+global:
+  scrape_interval: 5s
+  evaluation_interval: 15s
+
+rule_files:
+  - /etc/prometheus/alerts.yml
+
+scrape_configs:
+  # Scrape vLLM /metrics on the other machine
+  - job_name: "vllm"
+    metrics_path: /metrics
+    scheme: http           # use https if your endpoint is TLS
+    static_configs:
+      - targets:
+          - "host.docker.internal:3000"
+          - "host.docker.internal:3001"
+          - "host.docker.internal:3002"
+          - "host.docker.internal:3003"
+          - "host.docker.internal:3004"
+          - "host.docker.internal:3005"
+          - "host.docker.internal:3006"
+          - "host.docker.internal:3006"
+          - "host.docker.internal:3007"
+          - "host.docker.internal:3008"
+          - "host.docker.internal:3009"
+          - "host.docker.internal:7113"
+          - "host.docker.internal:7114"
+          - "host.docker.internal:7115"
+          - "host.docker.internal:7116"
+          - "host.docker.internal:7117"
+          - "host.docker.internal:7118"
+
+
+    # If your /metrics is protected, uncomment and fill:
+    # basic_auth:
+    #   username: YOUR_USER
+    #   password: YOUR_PASS
+    # bearer_token: /etc/prometheus/token
+    # tls_config:
+    #   insecure_skip_verify: true   # only for self-signed certs (dev)
+
+  # Scrape Prometheus itself (useful for sanity checks)
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["prometheus:9090"]

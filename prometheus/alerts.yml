@@ -1,0 +1,18 @@
+groups:
+- name: vllm-alerts
+  rules:
+  - alert: VLLMHighTTFTP95
+    expr: histogram_quantile(0.95, sum by (le)(
+            rate(vllm:time_to_first_token_seconds_bucket[5m]))) > 2
+    for: 5m
+    labels: {severity: warning}
+    annotations:
+      description: "TTFT p95 > 2s for 5m (check load, batching, or cache)."
+
+  - alert: VLLMLowPrefixCacheHit
+    expr: (sum(rate(vllm:prefix_cache_hits_total[10m])) /
+           sum(rate(vllm:prefix_cache_queries_total[10m]))) < 0.1
+    for: 10m
+    labels: {severity: info}
+    annotations:
+      description: "Prefix cache hit rate < 10% (ensure identical prefixes)."
