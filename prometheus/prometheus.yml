@@ -12,23 +12,22 @@ scrape_configs:
     scheme: http           # use https if your endpoint is TLS
     static_configs:
       - targets:
-          - "host.docker.internal:3000"
-          - "host.docker.internal:3001"
-          - "host.docker.internal:3002"
-          - "host.docker.internal:3003"
-          - "host.docker.internal:3004"
-          - "host.docker.internal:3005"
-          - "host.docker.internal:3006"
-          - "host.docker.internal:3006"
-          - "host.docker.internal:3007"
-          - "host.docker.internal:3008"
-          - "host.docker.internal:3009"
-          - "host.docker.internal:7113"
-          - "host.docker.internal:7114"
-          - "host.docker.internal:7115"
-          - "host.docker.internal:7116"
-          - "host.docker.internal:7117"
-          - "host.docker.internal:7118"
+          - "127.0.0.1:3000"
+          - "127.0.0.1:3001"
+          - "127.0.0.1:3002"
+          - "127.0.0.1:3003"
+          - "127.0.0.1:3004"
+          - "127.0.0.1:3005"
+          - "127.0.0.1:3006"
+          - "127.0.0.1:3007"
+          - "127.0.0.1:3008"
+          - "127.0.0.1:3009"
+          - "127.0.0.1:7113"
+          - "127.0.0.1:7114"
+          - "127.0.0.1:7115"
+          - "127.0.0.1:7116"
+          - "127.0.0.1:7117"
+          - "127.0.0.1:7118"
 
 
     # If your /metrics is protected, uncomment and fill:
@@ -42,4 +41,4 @@ scrape_configs:
   # Scrape Prometheus itself (useful for sanity checks)
   - job_name: "prometheus"
     static_configs:
-      - targets: ["prometheus:9090"]
+      - targets: ["localhost:9090"]
